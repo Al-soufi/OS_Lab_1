@@ -4,6 +4,8 @@ public class SystemCore {
     private final int Count_sysCalls = 5;
     private HashMap<Integer, SystemCall> Calls = new HashMap<>();
     private Stack stack;
+    private SystemCall call;
+
 
     public SystemCore(Stack stack) {
         Calls.put(0, new SystemCall(0, new Object[]{1, 2, 3}));
@@ -42,13 +44,13 @@ public class SystemCore {
                 return;
             }
         }
-        SystemCall Call = new SystemCall(ID, data);
-        for (int i = 0; i < Calls.get(Call.getid()).getdata().length; i++) {
-            if (Call.getdata()[i].getClass() != Calls.get(Call.getid()).getdata()[i].getClass()) {
+        call = Calls.get(ID);
+        for (int i = 0; i < data.length; i++) {
+            if (data[i].getClass() != call.getdata()[i].getClass()) {
                 System.out.println("System call by (ID:"+ID+") the wrong arguments were passed");
                 return;
             }
         }
-        System.out.println("system call is called by (ID:"+Call.getid()+")");
+        System.out.println("system call is called by (ID:"+call.getid()+")");
     }
 }
