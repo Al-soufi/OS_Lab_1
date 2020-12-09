@@ -20,8 +20,5 @@ public class Stack {
         }
         return null;
     }
-
-    public int getSize() {
-        return size;
-    }
+    public int getSize() { return size; }
 }

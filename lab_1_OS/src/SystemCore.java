@@ -6,7 +6,6 @@ public class SystemCore {
     private Stack stack;
     private SystemCall call;
 
-
     public SystemCore(Stack stack) {
         Calls.put(0, new SystemCall(0, new Object[]{1, 2, 3}));
         Calls.put(1, new SystemCall(1, new Object[]{5, "", 1.2}));
@@ -36,21 +35,28 @@ public class SystemCore {
             System.out.println("No system call with this (ID:"+ID+")");
             return;
         }
-        Object[] data = new Object[Calls.get(ID).getdata().length];
-        for (int i = 0; i < data.length; i++) {
-            data[i] = stack.pop();
-            if (data[i] == null) {
-                System.out.println("little arguments passed in the call (ID:"+ID+")");
-                return;
-            }
+        if(stack.getSize()==0){
+            System.out.println("The stack is empty");
+            return ;
         }
         call = Calls.get(ID);
+        int stackSize = stack.getSize();
+        Object[] data = new Object[stackSize];
+        for (int i = 0; i < stackSize; i++) {
+            data[i] = stack.pop();
+        }
+
+        if (data.length != call.getdata().length) {
+            System.out.println("little arguments passed in the call (ID:"+ID+")");
+            return;
+        }
+
         for (int i = 0; i < data.length; i++) {
             if (data[i].getClass() != call.getdata()[i].getClass()) {
                 System.out.println("System call by (ID:"+ID+") the wrong arguments were passed");
                 return;
             }
         }
-        System.out.println("system call is called by (ID:"+call.getid()+")");
+        System.out.println("System call is called by (ID:"+call.getid()+")");
     }
 }
