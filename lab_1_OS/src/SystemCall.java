@@ -7,5 +7,6 @@ public class SystemCall {
         ID= id;
     }
     public Object[] getdata() { return Data; }
+
     public int getid() { return ID; }
 }
